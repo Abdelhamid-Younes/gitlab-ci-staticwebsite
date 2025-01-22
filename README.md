@@ -1,5 +1,6 @@
 # Static Web Application CI/CD Pipeline
 
+
 ## Overview
 
 This project demonstrates a CI/CD pipeline for deploying a static web application using Docker and GitLab CI/CD. The application is built, tested, and deployed to various environments, including review, staging, and production (ec2 instances are used for deploying)
