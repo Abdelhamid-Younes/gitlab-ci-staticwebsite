@@ -116,8 +116,8 @@ test staging:
   <<: *test
   environment:
     name: staging
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "staging"'  
+  # rules:
+  #   - if: '$CI_COMMIT_BRANCH == "staging"'  
 
 # Job to test the application in the production environment
 deploy-prod:
