@@ -98,35 +98,6 @@ release image:
     - docker push "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}"
     - docker push "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
 
-# Job to test the application in the staging environment
-deploy-staging: 
-  stage: Deploy staging
-  only:
-    - master
-  environment:
-    name: staging
-    url: http://${EC2_HOST_DEPLOY}
-  <<: *deploy
-
-test staging:
-  stage: Test staging
-  only:
-    - master
-  environment:
-    name: staging 
-  <<: *test
-
-# Job to test the application in the production environment
-deploy-prod:
-  stage: Deploy prod
-  only:
-    - master
-  when: manual
-  environment:
-    name: prod
-    url: http://${EC2_HOST_DEPLOY}
-  <<: *deploy
-
 # Job to deploy to the review environment for merge requests
 deploy-review:
   stage: Deploy review
@@ -186,4 +157,33 @@ stop-review:
     - ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST_REVIEW
         echo "Stopping and removing the webapp container..."
         -C "$command1 && $command2"
+
+# Job to test the application in the staging environment
+deploy-staging: 
+  stage: Deploy staging
+  only:
+    - master
+  environment:
+    name: staging
+    url: http://${EC2_HOST_DEPLOY}
+  <<: *deploy
+
+test staging:
+  stage: Test staging
+  only:
+    - master
+  environment:
+    name: staging 
+  <<: *test
+
+# Job to test the application in the production environment
+deploy-prod:
+  stage: Deploy prod
+  only:
+    - master
+  when: manual
+  environment:
+    name: prod
+    url: http://${EC2_HOST_DEPLOY}
+  <<: *deploy
 
