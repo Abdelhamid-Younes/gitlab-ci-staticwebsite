@@ -101,12 +101,14 @@ release image:
 # Job to test the application in the staging environment
 deploy-staging: 
   stage: Deploy staging
-  only:
-    - master
+  # only:
+  #   - master
   <<: *deploy
   environment:
     name: staging
     url: http://${EC2_HOST_DEPLOY}
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "staging"'
 
 
 test staging:
@@ -114,22 +116,31 @@ test staging:
   <<: *test
   environment:
     name: staging
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "staging"'  
 
 # Job to test the application in the production environment
 deploy-prod:
   stage: Deploy prod
   <<: *deploy
-  only:
-    - master
+  # only:
+  #   - master
   environment:
     name: prod
     url: http://${EC2_HOST_DEPLOY}
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
+    - if: '$CI_MERGE_REQUEST_ID'
+      when: always
 
 test prod:
   stage: Test prod
   <<: *test
   environment:
     name: prod
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
 
 # Job to deploy to the review environment for merge requests
 deploy-review:
