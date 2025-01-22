@@ -20,7 +20,6 @@ stages:
   - Deploy staging
   - Test staging
   - Deploy prod
-  - Test prod
 
 # Template for test jobs
 .test_template: &test
@@ -79,11 +78,12 @@ test acceptation:
   stage: Test acceptation
   rules:
     - if: $CI_OPEN_MERGE_REQUESTS || $CI_COMMIT_REF_SLUG
+  before_script:
+    - apk add --no-cache curl 
   script:
     - docker load < static-webapp.tar
     - docker run -d -p 80:80 --name webapp static-webapp
     - sleep 5
-    - apk --no-cache add curl
     - curl "http://docker" | grep -i "Dimension"
 
 release image:
@@ -97,50 +97,6 @@ release image:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker push "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}"
     - docker push "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
-
-# Job to test the application in the staging environment
-deploy-staging: 
-  stage: Deploy staging
-  # only:
-  #   - master
-  <<: *deploy
-  environment:
-    name: staging
-    url: http://${EC2_HOST_DEPLOY}
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "staging"'
-
-
-test staging:
-  stage: Test staging
-  <<: *test
-  environment:
-    name: staging
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "staging"'  
-
-# Job to test the application in the production environment
-deploy-prod:
-  stage: Deploy prod
-  <<: *deploy
-  # only:
-  #   - master
-  environment:
-    name: prod
-    url: http://${EC2_HOST_DEPLOY}
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
-      when: manual
-    - if: '$CI_MERGE_REQUEST_ID'
-      when: always
-
-test prod:
-  stage: Test prod
-  <<: *test
-  environment:
-    name: prod
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "master"'
 
 # Job to deploy to the review environment for merge requests
 deploy-review:
@@ -202,3 +158,31 @@ stop-review:
         echo "Stopping and removing the webapp container..."
         -C "$command1 && $command2"
 
+# Job to test the application in the staging environment
+deploy-staging: 
+  stage: Deploy staging
+  only:
+    - master
+  environment:
+    name: staging
+    url: http://${EC2_HOST_DEPLOY}
+  <<: *deploy
+
+test staging:
+  stage: Test staging
+  only:
+    - master
+  environment:
+    name: staging 
+  <<: *test
+
+# Job to test the application in the production environment
+deploy-prod:
+  stage: Deploy prod
+  only:
+    - master
+  when: manual
+  environment:
+    name: prod
+    url: http://${EC2_HOST_DEPLOY}
+  <<: *deploy
