@@ -20,7 +20,6 @@ stages:
   - Deploy staging
   - Test staging
   - Deploy prod
-  - Test prod
 
 # Template for test jobs
 .test_template: &test
@@ -79,11 +78,12 @@ test acceptation:
   stage: Test acceptation
   rules:
     - if: $CI_OPEN_MERGE_REQUESTS || $CI_COMMIT_REF_SLUG
+  before_script:
+    - apk add --no-cache curl 
   script:
     - docker load < static-webapp.tar
     - docker run -d -p 80:80 --name webapp static-webapp
     - sleep 5
-    - apk --no-cache add curl
     - curl "http://docker" | grep -i "Dimension"
 
 release image:
@@ -103,47 +103,29 @@ deploy-staging:
   stage: Deploy staging
   only:
     - master
-  <<: *deploy
   environment:
     name: staging
     url: http://${EC2_HOST_DEPLOY}
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "staging"'
-
+  <<: *deploy
 
 test staging:
   stage: Test staging
   only:
     - master
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "staging"'  
-  <<: *test
   environment:
-    name: staging
+    name: staging 
+  <<: *test
 
 # Job to test the application in the production environment
 deploy-prod:
   stage: Deploy prod
-  <<: *deploy
   only:
     - master
   when: manual
   environment:
     name: prod
     url: http://${EC2_HOST_DEPLOY}
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "master"'
-  #     when: manual
-  #   - if: '$CI_MERGE_REQUEST_ID'
-  #     when: always
-
-test prod:
-  stage: Test prod
-  <<: *test
-  environment:
-    name: prod
-  # rules:
-  #   - if: '$CI_COMMIT_BRANCH == "master"'
+  <<: *deploy
 
 # Job to deploy to the review environment for merge requests
 deploy-review:
