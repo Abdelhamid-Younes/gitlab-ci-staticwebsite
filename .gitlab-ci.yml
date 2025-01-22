@@ -139,8 +139,8 @@ test prod:
   <<: *test
   environment:
     name: prod
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+  # rules:
+  #   - if: '$CI_COMMIT_BRANCH == "master"'
 
 # Job to deploy to the review environment for merge requests
 deploy-review:
