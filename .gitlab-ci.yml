@@ -201,3 +201,4 @@ stop-review:
     - ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST_REVIEW
         echo "Stopping and removing the webapp container..."
         -C "$command1 && $command2"
+
