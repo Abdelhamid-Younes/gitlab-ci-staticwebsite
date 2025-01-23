@@ -71,7 +71,7 @@ Before running the CI/CD pipeline for this project, ensure you have the followin
 3. **Configure Environment Variables**:
    - Set the following variables in your GitLab CI/CD settings:
 
-![](images/CI_CD_Pipeline.png)
+![](images/variables.png)
 
      - **`EC2_HOST_REVIEW`**: The IP address of your review environment server.
       - **`EC2_HOST_DEPLOY`**: The IP address of your staging/production server.
