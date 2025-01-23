@@ -73,10 +73,10 @@ Before running the CI/CD pipeline for this project, ensure you have the followin
 
 ![](images/variables.png)
 
-     - **`EC2_HOST_REVIEW`**: The IP address of your review environment server.
-      - **`EC2_HOST_DEPLOY`**: The IP address of your staging/production server.
+- **`EC2_HOST_REVIEW`**: The IP address of your review environment server.
+- **`EC2_HOST_DEPLOY`**: The IP address of your staging/production server.
 
-![](images/CI_CD_Pipeline.png)
+![](images/ec2s.png)
 
 4. **Run the Pipeline**:
    - Push your code changes to GitLab. The CI/CD pipeline will be triggered automatically based on the `.gitlab-ci.yml` configuration.
@@ -90,29 +90,29 @@ Before running the CI/CD pipeline for this project, ensure you have the followin
 
     - Pipeline master branch:
 
-![](images/CI_CD_Pipeline.png)
+![](images/pipeline_master1.png)
 
-![](images/CI_CD_Pipeline.png)
+![](images/pipeline_master2.png)
 
     - Pipeline review branch:
 
-![](images/CI_CD_Pipeline.png)
+![](images/pipeline_review1.png)
 
-![](images/CI_CD_Pipeline.png)
+![](images/pipeline_review2.png)
 
     - Home page of the application:
 
       - From review server:
 
-![](images/CI_CD_Pipeline.png)
+![](images/homepage_review.png)
 
         - From staging server:
 
-![](images/CI_CD_Pipeline.png)
+![](images/homepage_staging.png)
 
         - From prod server:
 
- ![](images/CI_CD_Pipeline.png)
+ ![](images/homepage_prod.png)
 
 ## Maintainers
 
