@@ -86,34 +86,36 @@ Before running the CI/CD pipeline for this project, ensure you have the followin
 
 ### Results
 
-Here is some screenshots of the project:
+- Here is some screenshots of the project:
 
     - Pipeline master branch:
 
-    ![](images/CI_CD_Pipeline.png)
+![](images/CI_CD_Pipeline.png)
 
-    ![](images/CI_CD_Pipeline.png)
+![](images/CI_CD_Pipeline.png)
 
     - Pipeline review branch:
 
-    ![](images/CI_CD_Pipeline.png)
+![](images/CI_CD_Pipeline.png)
 
-    ![](images/CI_CD_Pipeline.png)
+![](images/CI_CD_Pipeline.png)
 
     - Home page of the application:
 
-        - From review server:
+      - From review server:
 
-        ![](images/CI_CD_Pipeline.png)
+![](images/CI_CD_Pipeline.png)
 
         - From staging server:
 
-        ![](images/CI_CD_Pipeline.png)
+![](images/CI_CD_Pipeline.png)
 
         - From prod server:
 
-        ![](images/CI_CD_Pipeline.png)
+ ![](images/CI_CD_Pipeline.png)
 
+## Maintainers
 
+- **Abdelhamid YOUNES**
 
-
+Feel free to reach out if you have any questions or need further assistance.
