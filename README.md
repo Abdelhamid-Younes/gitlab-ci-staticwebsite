@@ -84,37 +84,36 @@ Before running the CI/CD pipeline for this project, ensure you have the followin
 
 ---
 
-### Results
+### Results : 
+Here is some screenshots of the project:
 
-- Here is some screenshots of the project:
-
-    - Pipeline master branch:
+- Pipeline master branch:
 
 ![](images/pipeline_master1.png)
 
 ![](images/pipeline_master2.png)
 
-    - Pipeline review branch:
+- Pipeline review branch:
 
 ![](images/pipeline_review1.png)
 
 ![](images/pipeline_review2.png)
 
-    - Home page of the application:
+- Home page of the application:
 
-      - From review server:
+   - From review server:
 
 ![](images/homepage_review.png)
 
-        - From staging server:
+   - From staging server:
 
 ![](images/homepage_staging.png)
 
-        - From prod server:
+   - From prod server:
 
  ![](images/homepage_prod.png)
 
-## Maintainers
+## Maintainers:
 
 - **Abdelhamid YOUNES**
 
