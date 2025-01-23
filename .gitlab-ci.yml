@@ -1,7 +1,7 @@
 # Global variables for the pipeline
 variables:
    APP_NAME: static-webapp
-   EC2_HOST_REVIEW: "3.95.14.175" # to change for every new review environment, 
+   EC2_HOST_REVIEW: "54.172.8.252" # to change for every new review environment, 
    #for staging and prod deployments, the variable EC2_HOST_DEPLOY is defined and affected dynamically for each environment.
 
 image: docker:latest
